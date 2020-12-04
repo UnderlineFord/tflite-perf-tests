@@ -40,9 +40,11 @@ This directory contains the details of the models used for the comparison.
 
 ## Methods used for model optimizations
 
-* Influenced from this [official notebook](https://github.com/tensorflow/models/blob/master/research/object_detection/colab_tutorials/eager_few_shot_od_training_tflite.ipynb).
+* As presented in the [tensorflow guide](https://www.tensorflow.org/lite/performance/post_training_quantization), several schemes for tflite optimization have been followed. 
 
-### 1. Method-1
+### 1. Method-1 (Dynamic Range Quantization)
+* Here, tflite **DEFAULT** optimization is used for convert the model with other default settings. Further details can be found [here](https://www.tensorflow.org/lite/performance/post_training_quantization#dynamic_range_quantization)
+
 ```python
 python object_detection/export_tflite_graph_tf2.py \
   --pipeline_config_path /content/$model_name/pipeline.config \
@@ -54,7 +56,9 @@ converter.optimizations = [tf.lite.Optimize.DEFAULT]
 tflite_quant_model = converter.convert()
 ```
 
-### 2. Method-2
+### 2. Method-2 (Integer Quantization with float fallback with UINT8 inference input type)
+* **Representative dataset** is used for the quantization as in [here](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_with_float_fallback_using_default_float_inputoutput). Additionally input is forced to be **UINT8** [reference](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only). Note that, [Integer-only quantization](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only) has unable to be performed due to unsupported OPs.
+
 ```python
 python object_detection/export_tflite_graph_tf2.py \
   --pipeline_config_path /content/$model_name/pipeline.config \
@@ -69,7 +73,9 @@ converter.inference_output_type = tf.uint8
 tflite_quant_model = converter.convert()
 ```
 
-### 3. Method-3
+### 3. Method-3 (Add NAME)
+*  Default settings is used based this this [official implementation](https://github.com/tensorflow/models/blob/master/research/object_detection/colab_tutorials/eager_few_shot_od_training_tflite.ipynb)
+
 ```python
 python object_detection/export_tflite_graph_tf2.py \
   --pipeline_config_path /content/$model_name/pipeline.config \
