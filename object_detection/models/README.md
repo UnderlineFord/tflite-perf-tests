@@ -40,10 +40,9 @@ This directory contains the details of the models used for the comparison.
 
 ## Methods used for model optimizations
 
-* As presented in the [tensorflow guide](https://www.tensorflow.org/lite/performance/post_training_quantization), several schemes for tflite optimization have been followed. 
 
 ### 1. Method-1 (Dynamic Range Quantization)
-* Here, tflite **DEFAULT** optimization is used for convert the model with other default settings. Further details can be found [here](https://www.tensorflow.org/lite/performance/post_training_quantization#dynamic_range_quantization)
+* Here, tflite **DEFAULT** optimization is used for convert the model with other default settings. Further details can be found in [tensorflow guide](https://www.tensorflow.org/lite/performance/post_training_quantization#dynamic_range_quantization)
 
 ```python
 python object_detection/export_tflite_graph_tf2.py \
@@ -57,7 +56,7 @@ tflite_quant_model = converter.convert()
 ```
 
 ### 2. Method-2 (Integer Quantization with float fallback with UINT8 inference input type)
-* **Representative dataset** is used for the quantization as in [here](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_with_float_fallback_using_default_float_inputoutput). Additionally input is forced to be **UINT8** as in [here](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only). Note that, [Integer-only quantization](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only) has unable to be performed due to unsupported OPs.
+* **Representative dataset** is used for the quantization as in [here](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_with_float_fallback_using_default_float_inputoutput). Additionally input is forced to be **UINT8** as in [this guide](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only). Note that, [Integer-only quantization](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only) has unable to be performed due to unsupported OPs.
 
 ```python
 python object_detection/export_tflite_graph_tf2.py \
