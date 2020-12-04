@@ -1,0 +1,8 @@
+
+# ignore all tflite files
+*.tflite
+
+get_fps_all.sh
+__pycache__
+*.xlsx
+/object_detection/models/example_model_1
