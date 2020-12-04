@@ -5,7 +5,7 @@ This directory contains the details of the models used for the comparison.
 
 ## Create tflite models
 
-* tflite models will be created based on the optimization schemes shown [below](#methods-used-for-model-optimizations)
+* tflite models will be created based on the optimization schemes explained in [here](#methods-used-for-model-optimizations)
 
 ### 1. Method-1
 * Download the complete **models** directory from [here](https://1drv.ms/u/s!AvriZdYzHLumoTuwMo0HXLCfHCMC?e=o71kcT) and replace with [the models directory](object_detection/models) manually.
