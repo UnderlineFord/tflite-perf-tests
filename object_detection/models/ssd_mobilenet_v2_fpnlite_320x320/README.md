@@ -4,7 +4,7 @@
 * downloaded from : [tf2 zoo](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection)
 * optimization schemes used : 1,3
 
-# Result comparison between different methods
+# Result comparison between different optimization schemes
 
 **Scheme**|**dataset**|**dtype**|**input shape**|**detection period (sec)**|**FPS (CPU)**|**FPS (RPI)**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
