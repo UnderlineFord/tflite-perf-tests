@@ -6,3 +6,4 @@ get_fps_all.sh
 __pycache__
 *.xlsx
 /object_detection/models/example_model_1
+*.zip
