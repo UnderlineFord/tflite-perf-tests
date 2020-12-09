@@ -4,7 +4,7 @@ This directory contains the details of the comparison of tflite models in object
 
 # Comparison results
 
-* The results shown here is the **best results** obtained from each model using different optimization methods shown in [here](models#methods-used-for-model-optimizations).
+* The results shown here is the **best results** obtained from each model using different optimization schemes shown in [here](models#methods-used-for-model-optimizations).
 
 **Model**|**dataset**|**dtype**|**input shape**|**how quantized**|**detection period (sec)**|**FPS (CPU)**|**FPS (RPI)**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
