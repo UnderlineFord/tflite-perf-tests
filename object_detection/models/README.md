@@ -55,7 +55,7 @@ converter.optimizations = [tf.lite.Optimize.DEFAULT]
 tflite_quant_model = converter.convert()
 ```
 
-### 2. IntQuantwFloatFall_inpUint (Integer Quantization with float fallback with UINT8 inference input type)
+### 2. IntQuantwFloatFallInpUint8 (Integer Quantization with float fallback with UINT8 inference input type)
 * **Representative dataset** is used for the quantization as in [here](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_with_float_fallback_using_default_float_inputoutput). Additionally input is forced to be **UINT8** as in [this guide](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only). Note that, [Integer-only quantization](https://www.tensorflow.org/lite/performance/post_training_quantization#integer_only) has unable to be performed due to unsupported OPs.
 
 ```python
