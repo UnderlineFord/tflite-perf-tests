@@ -8,7 +8,7 @@
 
 **Scheme**|**dataset**|**dtype**|**input shape**|**detection period (sec)**|**FPS (CPU)**|**FPS (RPI)**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
-scheme1|coco|float32|640|20|0.0021|0.0972
-scheme3|coco|float32|640|20|0.2863|**0.1218**
+DynRanQuant|coco|float32|640|20|0.0021|0.0972
+WithoutOpt|coco|float32|640|20|0.2863|**0.1218**
 
 
