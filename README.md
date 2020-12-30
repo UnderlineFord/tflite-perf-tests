@@ -3,6 +3,7 @@
 
 * This repository contained the latency benchmarks (FPS rates) obtained from different tflite models with different optimization patterns. 
 * Tests have been conducted on RPI and WSL (on CPU). Specifications are mentioned in [below](#specifications).
+* Python and C++ are used for the implementations.
 
 
 # Specifications
@@ -11,8 +12,7 @@
 * RPI version                  : RPI OS (32-bit)- Linux (ARM 32) -recommended:: Raspbian GNU/Linux 10 \n \l ::: Linux raspberrypi 5.4.72-v7l+ #1356 SMP Thu Oct 22 13:57:51 BST 2020
 * WSL version                  : Linux acerf15 4.4.0-19041-Microsoft #488-Microsoft Mon Sep 01 13:43:00 PST 2020 x86_64 x86_64 x86_64 GNU/Linux
 
-
-# Installation steps for RPI/ WSL
+# Installation steps for RPI/ WSL (Python)
 
 
 ## 1. Image classification
@@ -99,6 +99,15 @@
 	cd object_detection 
 	python object_detection.py --model_path models/ssd_mobilenet_v2_fpnlite_320x320/method5.tflite --label_path models/default_setting/coco_labelmap.txt
 	```
+# Installation steps for RPI/ WSL (C++)
+
+## Object detection 
+
+* Tensorflow Lite installation and environment setup has been done according to [this article](https://qengineering.eu/install-tensorflow-2-lite-on-raspberry-pi-4.html) and [this repository](https://github.com/Qengineering/TensorFlow_Lite_SSD_RPi_32-bits)
+* TFLite models obtained as explained in *Create tflite models section* [here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection)
+* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp)
+
+
 
 # Results
 * Final results comparison is found in [here](object_detection/README.md#comparison-results)
