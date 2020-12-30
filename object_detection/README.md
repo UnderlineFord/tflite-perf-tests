@@ -21,5 +21,5 @@ This directory contains the details of the comparison of tflite models in object
 
 
 * FPS is calculated considering 20- 40 second interval from the starting time of model inferencing
-* Num_threads of interpreter = 4
+* Num_threads of TensorFlow Lite Interpreter = 4
 
