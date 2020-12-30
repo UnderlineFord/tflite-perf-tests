@@ -99,7 +99,7 @@
 	cd object_detection 
 	python object_detection.py --model_path models/ssd_mobilenet_v2_fpnlite_320x320/method5.tflite --label_path models/default_setting/coco_labelmap.txt
 	```
-# Installation steps for RPI/ WSL (C++)
+# Installation steps for RPI (C++)
 
 ## Object detection 
 
