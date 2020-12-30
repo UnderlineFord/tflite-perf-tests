@@ -20,5 +20,6 @@ This directory contains the details of the comparison of tflite models in object
 [ssd\_mobilenet\_v3\_small](models/ssd_mobilenet_v3_small)|coco|uint8|320|already quantized|8.9612|8.9234|YNYY
 
 
-* FPS is calculated considering 20- 40 second interval from the starting time of model inferencing.
+* FPS is calculated considering 20- 40 second interval from the starting time of model inferencing
+* Num_threads of interpreter = 4
 
