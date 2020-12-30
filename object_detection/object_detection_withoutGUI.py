@@ -23,7 +23,6 @@ parser.add_argument('--label_path', type=str, help='Specify the label map', defa
 parser.add_argument('--image_path', type=str, help='Specify the image path', default='sample_images')
 
 
-
 args = parser.parse_args()
 
 model_path=args.model_path
@@ -34,7 +33,8 @@ image_path=args.image_path
 ##################################################
 
 confidence=0.6
-init_waiting_time= int(input("input initial waiting time (seconds) : ")) 
+#init_waiting_time= int(input("input initial waiting time (seconds) : ")) 
+init_waiting_time= 0
 
 my_fps=FPS()
 
