@@ -1,3 +1,4 @@
+
 # Copyright 2019 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +29,8 @@ class ObjectDetectorLite:
         self._load_label(label_path)
 
         # Define lite graph and Load Tensorflow Lite model into memory
-        self.interpreter = Interpreter(model_path=model_path, num_threads=4)
+        self.interpreter = Interpreter(model_path=model_path, num_threads= 4)
+        #self.interpreter = Interpreter(model_path=model_path)
         self.interpreter.allocate_tensors()
         self.input_details = self.interpreter.get_input_details()
         

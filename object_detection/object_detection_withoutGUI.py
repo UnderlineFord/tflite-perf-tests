@@ -23,6 +23,7 @@ parser.add_argument('--label_path', type=str, help='Specify the label map', defa
 parser.add_argument('--image_path', type=str, help='Specify the image path', default='sample_images')
 
 
+
 args = parser.parse_args()
 
 model_path=args.model_path
@@ -33,7 +34,7 @@ image_path=args.image_path
 ##################################################
 
 confidence=0.6
-
+init_waiting_time= int(input("input initial waiting time (seconds) : ")) 
 
 my_fps=FPS()
 
@@ -45,11 +46,11 @@ for img in sorted(os.listdir(image_path)):
 def pred_given_imgs(input_size):
     start=time.time()
     while(True):
-        if time.time()-start>20:
+        if time.time()-start> init_waiting_time + 20:
             break
             
         image = random.choice(images)
-        if time.time()-start >0: # initial waiting time
+        if time.time()-start > init_waiting_time: # initial waiting time
             my_fps.start()
             image=cv2.resize(image, tuple(input_size))
             boxes, scores, classes = detector.detect(image, confidence)
@@ -57,22 +58,9 @@ def pred_given_imgs(input_size):
         else:
             image=cv2.resize(image, tuple(input_size))
             boxes, scores, classes = detector.detect(image, confidence)
-        #for label, score in zip(classes, scores):
-        #    print(label, score)
-            
-        if len(boxes) > 0:
-            draw_bounding_boxes_on_image_array(image, boxes, display_str_list=classes)
-
-        cv2.imshow('frame',image)
-        
-        
-        
-        
-        if cv2.waitKey(1) == 27: 
-            break  # esc to quit
+       
     print('fps : ', my_fps.get_fps(), detector.get_input_size())
             
-    cv2.destroyAllWindows()
      
 
 detector=ObjectDetectorLite(model_path=model_path, label_path=label_path)

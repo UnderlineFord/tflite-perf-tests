@@ -3,7 +3,8 @@
 *.tflite
 
 get_fps_all.sh
-get_fps_cpp_comparison.sh
+#get_fps_cpp_comparison.sh
+#get_fps_cpp_comparison_withoutGUI.sh
 __pycache__
 *.xlsx
 /object_detection/models/example_model_1
