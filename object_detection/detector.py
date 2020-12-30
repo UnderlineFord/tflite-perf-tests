@@ -28,7 +28,7 @@ class ObjectDetectorLite:
         self._load_label(label_path)
 
         # Define lite graph and Load Tensorflow Lite model into memory
-        self.interpreter = Interpreter(model_path=model_path)
+        self.interpreter = Interpreter(model_path=model_path, num_threads=4)
         self.interpreter.allocate_tensors()
         self.input_details = self.interpreter.get_input_details()
         
