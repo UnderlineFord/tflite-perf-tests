@@ -6,7 +6,7 @@ This directory contains the details of the comparison of tflite models in object
 
 * The results shown here is the **best results** obtained from each model using different optimization schemes shown in [here](models#methods-used-for-model-optimizations).
 
-**Model**|**dataset**|**dtype**|**input shape**|**how quantized**|**FPS (RPI+CPP)**|**FPS (RPI+Python)**|**CPP : detected/ bbox correct**|**Python : detected/ bbox correct**
+**Model**|**dataset**|**dtype**|**input shape**|**how quantized**|**FPS (RPI+CPP)**|**FPS (RPI+Python)**|**CPP- detected/ bbox correct**|**Python- detected/ bbox correct**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
 [mobilenet\_object\_localizer ](models/mobile_object_localizer)|-|uint8|192|already quantized|32.3917|37.3974|YY|YN
 [mobilenetv2\_danoorkans\_ayya](models/mobilenetv2_danoorkans_ayya)|-|uint8|300|already quantized|13.0855|13.0675|NN|NN
