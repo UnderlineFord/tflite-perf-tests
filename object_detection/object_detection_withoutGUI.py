@@ -34,7 +34,7 @@ image_path=args.image_path
 
 confidence=0.6
 #init_waiting_time= int(input("input initial waiting time (seconds) : ")) 
-init_waiting_time= 0
+init_waiting_time= 20
 
 my_fps=FPS()
 
