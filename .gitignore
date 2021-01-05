@@ -15,5 +15,6 @@ __pycache__
 models_from_scripts
 experiment_results_links.rtf
 *.pptx
+*.pyc
 
 !TFLITE_PERF_TEST-COMPARISON.xlsx
