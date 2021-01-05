@@ -16,5 +16,6 @@ models_from_scripts
 experiment_results_links.rtf
 *.pptx
 *.pyc
+cpp_file_structure
 
 !TFLITE_PERF_TEST-COMPARISON.xlsx
