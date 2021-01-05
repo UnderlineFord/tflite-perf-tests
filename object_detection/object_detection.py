@@ -1,7 +1,5 @@
 
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
 import cv2
 import time
 from fps import FPS
@@ -34,7 +32,7 @@ image_path=args.image_path
 
 confidence=0.6
 #init_waiting_time= int(input("input initial waiting time (seconds) : ")) 
-init_waiting_time= 0
+init_waiting_time=0
 
 my_fps=FPS()
 
