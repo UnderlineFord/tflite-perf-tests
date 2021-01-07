@@ -6,7 +6,7 @@ This directory contains the details of the comparison of tflite models in object
 
 * The results shown here is the **best results** obtained from each model using different optimization schemes shown in [here](models#methods-used-for-model-optimizations).
 
-**Model**|**dataset**|**dtype**|**input shape**|**how quantized**|**FPS (RPI32bit+CPP)**|**FPS (RPI32bit+Python)**|**FPS (RPI64bit+CPP)**|**FPS (RPI64bit+Python)**|**CPP- detected/ bbox correct**|**Python- detected/ bbox correct**
+**Model**|**dataset**|**dtype**|**input shape**|**how quantized**|**FPS (RPI32bit+CPP)**|**FPS (RPI32bit+Python)**|**FPS (RPI64bit+CPP)**|**FPS (RPI64bit+Python)**|**CPP- detected/ bbox correct**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
 [ssd\_mobilenet\_v3\_small](models/ssd_mobilenet_v3_small)|coco|uint8|320|already quantized|8.9612|8.9234|16.4866|19.9146|YN|YY
 [ssd\_mobilenet\_v3\_large](models/ssd_mobilenet_v3_large)|coco|uint8|320|already quantized|4.031|4.0618|7.4348|8.7249|YN|YY
