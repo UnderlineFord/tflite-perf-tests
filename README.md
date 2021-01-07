@@ -112,7 +112,7 @@
 	```python
 	pip3 install tflite runtime : https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp37-cp37m-linux_aarch64.whl
 	```
-* Other instructions are same as in the 32-bit object detection installation steps.
+* Other instructions are same as in the [32-bit object detection installation steps](https://github.com/accelr-net/tflite-perf-tests/blob/main/README.md#2-object-detection).
 
 
 
