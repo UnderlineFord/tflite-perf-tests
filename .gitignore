@@ -19,3 +19,7 @@ experiment_results_links.rtf
 cpp64bit_file_structure
 
 !TFLITE_PERF_TEST-COMPARISON.xlsx
+
+#ignore datasets
+coco2014_val_set
+datasets
