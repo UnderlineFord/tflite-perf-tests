@@ -13,31 +13,35 @@ import json
 
 from visualization_utils import draw_bounding_boxes_on_image_array
 from utils import load_image
-from detector import ObjectDetectorLite
+from detector_for_cocoeval import ObjectDetectorLite
 
 
 parser = argparse.ArgumentParser(description='Object Detection')
 parser.add_argument('--model_path', type=str, help='Specify the model path', default='models/detect.tflite')
 parser.add_argument('--label_path', type=str, help='Specify the label map', default='models/default_setting/coco_labelmap.txt')
 parser.add_argument('--image_path', type=str, help='Specify the image path', default='datasets/coco2014_val/images')
+parser.add_argument('--save_results', type=str, help='Specify whether class index should be returned', default='False')
 
 parser.add_argument('--n_bit', type=str, help='Specify 32/ 64 bit hardware', default=32)
 parser.add_argument('--hardware', type=str, help='Specify hardware', default='rpi')
-
 
 args = parser.parse_args()
 
 model_path=args.model_path
 label_path=args.label_path
 image_path=args.image_path
+return_classes=args.save_results
 n_bit=args.n_bit
 hardware=args.hardware
+
+if return_classes=='True':return_classes=True
+else:return_classes=False
 
 model_name=model_path.strip().split('/')[-2]
 method=model_path.strip().split('/')[-1][:-7]
 model_name+='_'+method
 
-resFile=f'results/{model_name}_res_{n_bit}bit_{hardware}_python.json'
+resFile=f'results/baselines/{model_name}@baseline.json'
 
 ##################################################
 
@@ -45,49 +49,75 @@ confidence=0.6
 #init_waiting_time= int(input("input initial waiting time (seconds) : ")) 
 init_waiting_time=0
 
-my_fps=FPS()
 
-images=[]
-    images.append()
-#images=np.array(images)
-    
-def pred_given_imgs(input_size):
-    start=time.time()
-    for img in sorted(os.listdir(image_path)):
+def img_name2id(image_name_string):
+  return int(image_name_string.split('.')[0])
+
+def get_bbox(box, original_img_size):
+  '''
+  below: from original annotation: bbox processing from https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/coco.py  
+  [bbox_x, bbox_y, bbox_w, bbox_h] = ann['bbox']
+  poly = [[bbox_x, bbox_y], [bbox_x, bbox_y+bbox_h], [bbox_x+bbox_w, bbox_y+bbox_h], [bbox_x+bbox_w, bbox_y]]
+  '''
+
+  ymin,xmin,ymax,xmax = box
+  im_height, im_width = original_img_size  ## original image size should come here !!! ## NOTE THAT -> HEIGHT COMES FIRST
+  (left, right, top, bottom) = (xmin * im_width, xmax * im_width, ymin * im_height, ymax * im_height)
+  
+  width=right-left
+  height=bottom-top
+
+  return [xmin * im_width, ymin * im_height, width, height] #obtained carefully. If change/ replace this -> please double check
+
+  #return [xmin*10, ymin*10, (xmax- xmin)*10, (ymax- ymin)*10]
+  #return [(xmin +xmax)* im_width/2, (ymin+ymax) * im_height/2, width, height]
+
+  #return [0,0, 100, 300]
+
+def pred_given_imgs(input_size, return_classes=False):
+    my_fps=FPS()
+
+    results = []
+
+    img_list=sorted(os.listdir(image_path)) #[:100]
+    for i in range(len(img_list)):
+        if i%100==0:print(f'image number : {i}/{len(img_list)}')
+        img= img_list[i]
         image = cv2.imread(image_path+'/'+img)
-        
-        if time.time()-start >init_waiting_time: # initial waiting time
-            my_fps.start()
-            image=cv2.resize(image, tuple(input_size))
-            boxes, scores, classes = detector.detect(image, confidence)
-            my_fps.stop()
+        original_img_size = image.shape[:2]
+
+        if return_classes==True:
+          (details, my_fps) = detector.detect(image, confidence, input_size, return_classes=return_classes, my_fps=my_fps)
+          (boxes, scores, classes, cat_ids)=details
         else:
-            image=cv2.resize(image, tuple(input_size))
-            boxes, scores, classes = detector.detect(image, confidence)
-        #for label, score in zip(classes, scores):
-        #    print(label, score)
+          (details, my_fps)= detector.detect(image, confidence, input_size, return_classes=return_classes, my_fps=my_fps)
+          (boxes, scores, classes)=details
 
-        results_dict= {'boxes':boxes, 'scores':scores, 'classes':classes, 'image_id', img}
-        with open(resFile, 'r') as f:
-            json.dump(results_dict, resFile)
-            
-        if len(boxes) > 0:
-            draw_bounding_boxes_on_image_array(image, boxes, display_str_list=classes)
+        #print(my_fps.elapsed_time_list)
 
-        cv2.imshow('frame',image)
-        
-        
-        
-        
-        if cv2.waitKey(1) == 27: 
-            break  # esc to quit
+        for j in range(len(boxes)):
+          bbox= get_bbox(boxes[j], original_img_size)
+
+          if return_classes:cat_id = int(cat_ids[j])
+          else:cat_id=classes[j]
+          results.append({'bbox': bbox,'category_id': cat_id, 'image_id': img_name2id(img), 'score': scores[j].astype('float')})
+
+          #for k in range(len(annot_data['annotations'])):
+          #  if annot_data['annotations'][k]['image_id']==img_name2id(img):
+          #    results.append({'bbox': annot_data['annotations'][k]['bbox'],'category_id': annot_data['annotations'][k]['category_id'], 'image_id': img_name2id(img), 'score': 1.0})
+
+    with open(resFile, 'w') as f:
+      json.dump(results, f)
+    print('results File : ',resFile)
     print('fps : ', my_fps.get_fps(), detector.get_input_size())
-            
-    cv2.destroyAllWindows()
-     
+
+
+#annotFile = 'datasets/coco2017_val/instances_val2017.json'
+#with open(annotFile) as f:
+#  annot_data= json.load(f)
 
 detector=ObjectDetectorLite(model_path=model_path, label_path=label_path)
 input_size= detector.get_input_size()
-pred_given_imgs(input_size)
+pred_given_imgs(input_size, return_classes=return_classes)
 
 detector.close()
