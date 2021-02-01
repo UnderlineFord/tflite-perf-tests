@@ -24,3 +24,4 @@ cpp64bit_file_structure
 coco2014_val_set
 coco2017_val_set
 /object_detection/datasets/*
+!/object_detection/datasets/README.md
