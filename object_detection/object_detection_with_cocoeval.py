@@ -24,6 +24,9 @@ parser.add_argument('--save_results', type=str, help='Specify whether class inde
 
 parser.add_argument('--n_bit', type=str, help='Specify 32/ 64 bit hardware', default=32)
 parser.add_argument('--hardware', type=str, help='Specify hardware', default='rpi')
+parser.add_argument('--coco_dataset_version', type=str, help='Specify coco version', default='2017')
+parser.add_argument('--is_baseline', type=str, help='Specify coco version', default='True')
+
 
 args = parser.parse_args()
 
@@ -33,6 +36,8 @@ image_path=args.image_path
 return_classes=args.save_results
 n_bit=args.n_bit
 hardware=args.hardware
+coco_dataset_version= args.coco_dataset_version
+is_baseline=args.is_baseline
 
 if return_classes=='True':return_classes=True
 else:return_classes=False
@@ -41,7 +46,13 @@ model_name=model_path.strip().split('/')[-2]
 method=model_path.strip().split('/')[-1][:-7]
 model_name+='_'+method
 
-resFile=f'results/baselines/{model_name}@baseline.json'
+os.makedirs(f'results/coco{coco_dataset_version}_val', exist_ok = True) 
+
+if is_baseline=='True':
+  resFile=f'results/coco{coco_dataset_version}_val/{model_name}@baseline.json'
+else:
+  resFile=f'results/coco{coco_dataset_version}_val/{model_name}@{n_bit}bit@{hardware}@python@results.json'
+
 
 ##################################################
 
@@ -50,8 +61,11 @@ confidence=0.6
 init_waiting_time=0
 
 
-def img_name2id(image_name_string):
-  return int(image_name_string.split('.')[0])
+def img_name2id(image_name_string, coco_dataset_version='2017'):
+  if coco_dataset_version=='2017':
+    return int(image_name_string.split('.')[0])
+  elif coco_dataset_version=='2014':
+    return int(image_name_string.split('.')[0][13:])
 
 def get_bbox(box, original_img_size):
   '''
@@ -74,12 +88,12 @@ def get_bbox(box, original_img_size):
 
   #return [0,0, 100, 300]
 
-def pred_given_imgs(input_size, return_classes=False):
+def pred_given_imgs(input_size, return_classes=False, coco_dataset_version='2017'):
     my_fps=FPS()
 
     results = []
 
-    img_list=sorted(os.listdir(image_path)) #[:100]
+    img_list=sorted(os.listdir(image_path))[:100]
     for i in range(len(img_list)):
         if i%100==0:print(f'image number : {i}/{len(img_list)}')
         img= img_list[i]
@@ -100,7 +114,7 @@ def pred_given_imgs(input_size, return_classes=False):
 
           if return_classes:cat_id = int(cat_ids[j])
           else:cat_id=classes[j]
-          results.append({'bbox': bbox,'category_id': cat_id, 'image_id': img_name2id(img), 'score': scores[j].astype('float')})
+          results.append({'bbox': bbox,'category_id': cat_id, 'image_id': img_name2id(img, coco_dataset_version), 'score': scores[j].astype('float')})
 
           #for k in range(len(annot_data['annotations'])):
           #  if annot_data['annotations'][k]['image_id']==img_name2id(img):
@@ -118,6 +132,6 @@ def pred_given_imgs(input_size, return_classes=False):
 
 detector=ObjectDetectorLite(model_path=model_path, label_path=label_path)
 input_size= detector.get_input_size()
-pred_given_imgs(input_size, return_classes=return_classes)
+pred_given_imgs(input_size, return_classes=return_classes, coco_dataset_version= coco_dataset_version)
 
 detector.close()
