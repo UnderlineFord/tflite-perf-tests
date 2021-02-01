@@ -26,6 +26,7 @@ parser.add_argument('--n_bit', type=str, help='Specify 32/ 64 bit hardware', def
 parser.add_argument('--hardware', type=str, help='Specify hardware', default='rpi')
 parser.add_argument('--coco_dataset_version', type=str, help='Specify coco version', default='2017')
 parser.add_argument('--is_baseline', type=str, help='Specify coco version', default='True')
+parser.add_argument('--is_checking_code', type=str, help='Specify coco version', default='False') # to check whether the code os correct
 
 
 args = parser.parse_args()
@@ -38,6 +39,7 @@ n_bit=args.n_bit
 hardware=args.hardware
 coco_dataset_version= args.coco_dataset_version
 is_baseline=args.is_baseline
+is_checking_code=args.is_checking_code
 
 if return_classes=='True':return_classes=True
 else:return_classes=False
@@ -92,8 +94,9 @@ def pred_given_imgs(input_size, return_classes=False, coco_dataset_version='2017
     my_fps=FPS()
 
     results = []
-
-    img_list=sorted(os.listdir(image_path))[:100]
+    if is_checking_code=='True':
+      img_list=sorted(os.listdir(image_path))[:100]
+    else:img_list=sorted(os.listdir(image_path))
     for i in range(len(img_list)):
         if i%100==0:print(f'image number : {i}/{len(img_list)}')
         img= img_list[i]
