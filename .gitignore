@@ -23,4 +23,4 @@ cpp64bit_file_structure
 #ignore datasets
 coco2014_val_set
 coco2017_val_set
-datasets
+/object_detection/datasets/*
