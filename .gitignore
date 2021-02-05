@@ -17,6 +17,7 @@ experiment_results_links.rtf
 *.pptx
 *.pyc
 cpp64bit_file_structure
+!cpp64bit_file_structure/**/results.txt
 
 !TFLITE_PERF_TEST-COMPARISON.xlsx
 
