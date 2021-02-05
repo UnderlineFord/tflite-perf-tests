@@ -26,5 +26,5 @@ coco2017_val_set
 /object_detection/datasets/*
 !/object_detection/datasets/README.md
 
-#/object_detection/cpp64bit_file_structure/*
+/object_detection/cpp64bit_file_structure/*
 !/cpp64bit_file_structure/**/results.txt
