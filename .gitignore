@@ -16,8 +16,7 @@ models_from_scripts
 experiment_results_links.rtf
 *.pptx
 *.pyc
-cpp64bit_file_structure
-!cpp64bit_file_structure/**/results.txt
+
 
 !TFLITE_PERF_TEST-COMPARISON.xlsx
 
@@ -26,3 +25,6 @@ coco2014_val_set
 coco2017_val_set
 /object_detection/datasets/*
 !/object_detection/datasets/README.md
+
+/object_detection/cpp64bit_file_structure/*
+!/object_detection/cpp64bit_file_structure/save_outputs/ssd_mobilenet_v1/results.txt
