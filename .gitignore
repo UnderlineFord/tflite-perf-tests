@@ -26,5 +26,14 @@ coco2017_val_set
 /object_detection/datasets/*
 !/object_detection/datasets/README.md
 
-/object_detection/cpp64bit_file_structure/*
-!/cpp64bit_file_structure/**/results.txt
+#/object_detection/cpp64bit_file_structure/*
+#!/cpp64bit_file_structure/**/results.txt
+
+bin
+obj
+*.mp4
+*.depend
+*.cbp
+*.layout
+COCO_labels.txt
+
