@@ -58,7 +58,7 @@ else:
 
 ##################################################
 
-confidence=0.6
+confidence=0.5 #CHANGES RECENTLY
 #init_waiting_time= int(input("input initial waiting time (seconds) : ")) 
 init_waiting_time=0
 
