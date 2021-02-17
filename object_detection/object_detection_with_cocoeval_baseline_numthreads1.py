@@ -13,7 +13,7 @@ import json
 
 from visualization_utils import draw_bounding_boxes_on_image_array
 from utils import load_image
-from detector_for_cocoeval import ObjectDetectorLite
+from detector_for_cocoeval_baseline_numthreads1 import ObjectDetectorLite
 
 
 parser = argparse.ArgumentParser(description='Object Detection')
