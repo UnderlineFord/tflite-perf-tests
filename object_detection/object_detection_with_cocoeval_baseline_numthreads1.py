@@ -50,11 +50,7 @@ model_name+='_'+method
 
 os.makedirs(f'results/coco{coco_dataset_version}_val', exist_ok = True) 
 
-if is_baseline=='True':
-  resFile=f'results/coco{coco_dataset_version}_val/{model_name}@baseline.json'
-else:
-  resFile=f'results/coco{coco_dataset_version}_val/{model_name}@{n_bit}bit@{hardware}@python@results.json'
-
+resFile=f'results/coco{coco_dataset_version}_val/{model_name}@{n_bit}bit@{hardware}@python@results_numthreads1.json'
 
 ##################################################
 
