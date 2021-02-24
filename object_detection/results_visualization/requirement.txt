@@ -1,0 +1,9 @@
+json
+pycocotools
+numpy
+skimage
+matplotlib
+pylab
+os
+wget
+shutil
