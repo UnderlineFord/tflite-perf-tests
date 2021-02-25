@@ -8,6 +8,7 @@
 
 ## Converting results.txt files to results-evaluation-friendly json formats:
 ```
+cd cpp32bit_file_structure
 pip install -r requirements.txt
 python convert_cpp32_txt2json.py
 ```
