@@ -1,6 +1,6 @@
 ## Results visualization
 
-Visualizations of results using the results json files saved [here](../results/coco2017_val) will be done.
+Visualizations of results using the results json files saved [here](../results/coco2017_val) will be done. Baseline results visualization is done using COCO2017 annotations which will be downloaded to [datasets directory](../datasets)
 
 ### Visualization steps:
 
@@ -14,4 +14,4 @@ Visualization results will be saved in this directory.
 
 ### Example visualization result
 
-[Visualization results of "ssd_mobilenet_v1_1_default_model"](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/results_visualization/ssd_mobilenet_v1_1_default_model%40visualization.png)
+![Visualization results of "ssd_mobilenet_v1_1_default_model"](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/results_visualization/ssd_mobilenet_v1_1_default_model%40visualization.png)
