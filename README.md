@@ -136,4 +136,16 @@
 * Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp)
 
 # Results
+
+## FPS speed evaluation
 * Final results comparison is found in [here](object_detection/README.md#comparison-results)
+
+## Accuracy evaluation
+* Accuracy evaluations and instructions can be found [here](object_Detection/results_evaluation)
+
+## Visualization
+* Visualization of results and instructions can be found [here](object_Detection/results_visualization)
+
+
+
+
