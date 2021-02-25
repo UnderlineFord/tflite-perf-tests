@@ -141,10 +141,10 @@
 * Final results comparison is found in [here](object_detection/README.md#comparison-results)
 
 ## Accuracy evaluation
-* Accuracy evaluations and instructions can be found [here](object_Detection/results_evaluation)
+* Accuracy evaluations and instructions can be found [here](object_detection/results_evaluation)
 
 ## Visualization
-* Visualization of results and instructions can be found [here](object_Detection/results_visualization)
+* Visualization of results and instructions can be found [here](object_detection/results_visualization)
 
 
 
