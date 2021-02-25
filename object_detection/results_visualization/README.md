@@ -1,4 +1,4 @@
-## Results visualization
+## Results Visualization
 
 Visualizations of results using the results json files saved [here](../results/coco2017_val) will be done. Baseline results visualization is done using COCO2017 annotations which will be downloaded to [datasets directory](../datasets)
 
