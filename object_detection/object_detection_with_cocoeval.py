@@ -97,6 +97,8 @@ def pred_given_imgs(input_size, return_classes=False, coco_dataset_version='2017
     if is_checking_code=='True':
       img_list=sorted(os.listdir(image_path))[:100]
     else:img_list=sorted(os.listdir(image_path))
+
+    fps_array=[]
     for i in range(len(img_list)):
         if i%100==0:print(f'image number : {i}/{len(img_list)}')
         img= img_list[i]
@@ -110,6 +112,7 @@ def pred_given_imgs(input_size, return_classes=False, coco_dataset_version='2017
           (details, my_fps)= detector.detect(image, confidence, input_size, return_classes=return_classes, my_fps=my_fps)
           (boxes, scores, classes)=details
 
+        fps_array.append(my_fps.get_fps())
         #print(my_fps.elapsed_time_list)
 
         for j in range(len(boxes)):
@@ -126,7 +129,7 @@ def pred_given_imgs(input_size, return_classes=False, coco_dataset_version='2017
     with open(resFile, 'w') as f:
       json.dump(results, f)
     print('results File : ',resFile)
-    print('fps : ', my_fps.get_fps(), detector.get_input_size())
+    print('fps : ', np.mean(fps_array), detector.get_input_size())
 
 
 #annotFile = 'datasets/coco2017_val/instances_val2017.json'
