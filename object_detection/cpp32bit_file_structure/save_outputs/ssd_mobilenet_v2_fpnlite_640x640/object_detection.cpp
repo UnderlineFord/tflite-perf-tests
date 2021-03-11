@@ -159,10 +159,10 @@ int main(int argc,char ** argv)
 
         f=detect_from_video(frame, out_array, image_id);
 
-        FPS[((Fcnt++)&0x0F)]=1000.0/f;
+        FPS[((Fcnt++)&0x0F)]=f/1000.0;
         for(f=0.0, i=0;i<16;i++){ f+=FPS[i]; }
 
-        fps_array.push_back(f/16);
+        fps_array.push_back(1/(f/16));
 
         //putText(frame, format("FPS %0.2f",f/16),Point(10,20),FONT_HERSHEY_SIMPLEX,0.6, Scalar(0, 0, 255));
         //imshow("RPi 4 - 2.0 GHz - 2 Mb RAM", frame);
