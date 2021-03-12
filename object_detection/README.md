@@ -4,6 +4,21 @@ This directory contains the details of the comparison of tflite models in object
 
 # Comparison results
 
+* Results shown in the article:
+
+| FPS- with heat sink/fans- corrected fps |
+|:-----:|:-----:|:-----:|:-----:|:-----:|
+| Experiment| 1. ssd_mobilenet_v3_small | 2. ssd_mobilenet_v3_large | 3. ssd_mobilenet_v2 (II- STATIC)  | 4. ssd_mobilenet_v1_1 |
+|:-----:|:-----:|:-----:|:-----:|:-----:|
+| baseline |8.2447|2.9859| 4.0262 | 5.4377|
+| 32bit C++|NA|NA| 12.649 | 16.2938|
+| 32bit Python|8.7626|3.918| 12.8385| 16.6009|
+| 64bit C++|NA|NA| 17.153 | 22.8117|
+| 64bit Python|18.475|8.1404| 17.0597| 22.2758|
+
+
+
+
 * The results shown here is the **best results** obtained from each model using different optimization schemes shown in [here](models#methods-used-for-model-optimizations).
 
 **Model**|**dataset**|**dtype**|**input shape**|**how quantized**|**FPS (RPI32bit+CPP)**|**FPS (RPI32bit+Python)**|**FPS (RPI64bit+CPP)**|**FPS (RPI64bit+Python)**|**CPP- detected/ bbox correct**|**Python- detected/ bbox correct**
