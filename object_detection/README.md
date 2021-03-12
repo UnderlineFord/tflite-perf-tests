@@ -35,8 +35,6 @@ This directory contains the details of the comparison of tflite models in object
 [mobilenet\_object\_localizer ](models/mobile_object_localizer)|-|uint8|192|already quantized|32.3917|37.3974|38.4623|35.7587|YY|YN
 
 
-<script src="https://gist.github.com/udithh-accelr/fb5381cdd1e4ab31ed9e87fbe301e884.js"></script>
-
 * FPS is calculated using sample_datasets as explained in [step 5 here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection).
 * FPS is calculated considering 20- 40 second interval from the starting time of model inferencing
 * Num_threads of TensorFlow Lite Interpreter = 4
