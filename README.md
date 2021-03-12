@@ -97,11 +97,19 @@
 	2. Method 2: Use [prepare_models.sh](object_detection/models/prepare_models.sh) as mentioned [here](https://github.com/udithh-accelr/test-repo/tree/main/object_detection/models#2-method-2-1) to create tflite models
 	3. Method 3: Manually download and convert models using the guidelines [here](https://github.com/udithh-accelr/test-repo/tree/main/object_detection/models#3-method-3-1)
 
-4. Run object_detection.py
+4. Run object_detection.py for evaluate only FPS on [sample dataset](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/sample_images)
 	```python
 	cd object_detection 
-	python object_detection.py --model_path models/ssd_mobilenet_v2_fpnlite_320x320/method5.tflite --label_path models/default_setting/coco_labelmap.txt
+	python object_detection.py --model_path models/ssd_mobilenet_v3_small/model.tflite --label_path models/default_setting/coco_labelmap.txt
 	```
+5. Run object_detection_with_cocoeval.py for evaluating FPS and calculating mAP for COCO dataset simultaneously (Use proper arguments/ Tested only on RPI)
+	```python
+	cd object_detection 
+	python3 object_detection_with_cocoeval.py --model_path models/ssd_mobilenet_v3_small/model.tflite --save_results True --image_path 'datasets/coco2017_val/images' --coco_dataset_version='2017' --is_baseline=False
+	```
+	
+	* This creates results/ prediction files (json) which will be saved in [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/results/coco2017_val). Those can be used for [visualization the bounding boxes](https://github.com/accelr-net/tflite-perf-tests#visualization)/ [Accuracy evaluation](https://github.com/accelr-net/tflite-perf-tests#accuracy-evaluation).
+
 
 ## 2. 64bit RPI
 
@@ -113,9 +121,11 @@
 	pip3 install tflite runtime : https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp37-cp37m-linux_aarch64.whl
 	```
 * Other instructions are same as in the [32-bit object detection installation steps](https://github.com/accelr-net/tflite-perf-tests/blob/main/README.md#2-object-detection).
-
-
-
+* Step-5 in [32-bit object detection installation steps](https://github.com/accelr-net/tflite-perf-tests/blob/main/README.md#2-object-detection) should be changed as follows,
+	```python
+	cd object_detection 
+	python3 object_detection_with_cocoeval.py --model_path models/ssd_mobilenet_v3_small/model.tflite --save_results True --image_path 'datasets/coco2017_val/images' --coco_dataset_version='2017' --is_baseline=False --n_bit=64
+	```
 
 # Installation steps for RPI (C++)
 
@@ -125,7 +135,12 @@
 
 * Tensorflow Lite installation and environment setup has been done according to [this article](https://qengineering.eu/install-tensorflow-2-lite-on-raspberry-pi-4.html) and [this repository](https://github.com/Qengineering/TensorFlow_Lite_SSD_RPi_32-bits)
 * TFLite models obtained as explained in *Create tflite models section* [here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection)
-* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp)
+* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp) based on the [sample dataset](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/sample_images)
+* Performance evaluation and results saving both can be done simultaneously using the scripts in [here](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp32bit_file_structure/save_outputs/). (eg: [ssd_mobilenet_v3_small model](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp32bit_file_structure/save_outputs/ssd_mobilenet_v3_small/object_detection.cpp))
+	* This saves the results/ predictions as txt files inside the corresponding directory.
+	* Those txt files should be converted to json format using the steps explained [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/cpp32bit_file_structure).
+	* This created results/ prediction files (json) will be saved in [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/results/coco2017_val). 
+	* Those can be used for [visualization the bounding boxes](https://github.com/accelr-net/tflite-perf-tests#visualization)/ [Accuracy evaluation](https://github.com/accelr-net/tflite-perf-tests#accuracy-evaluation).
 
 ## 2. 64 bit RPI
 
@@ -133,9 +148,14 @@
 
 * Tensorflow Lite installation and environment setup has been done according to [this article](https://qengineering.eu/install-tensorflow-2-lite-on-raspberry-64-os.html) and [this repository](https://github.com/Qengineering/TensorFlow_Lite_SSD_RPi_64-bits)
 * TFLite models obtained as explained in *Create tflite models section* [here](https://github.com/accelr-net/tflite-perf-tests###2-object-detection)
-* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp)
+* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp) based on the [sample dataset](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/sample_images)
+* Performance evaluation and results saving both can be done simultaneously using the scripts in [here](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp64bit_file_structure/save_outputs/). (eg: [ssd_mobilenet_v3_small model](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp64bit_file_structure/save_outputs/ssd_mobilenet_v3_small/object_detection.cpp))
+	* This saves the results/ predictions as txt files inside the corresponding directory.
+	* Those txt files should be converted to json format using the steps explained [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/cpp64bit_file_structure).
+	* This created results/ prediction files (json) will be saved in [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/results/coco2017_val). 
+	* Those can be used for [visualization the bounding boxes](https://github.com/accelr-net/tflite-perf-tests#visualization)/ [Accuracy evaluation](https://github.com/accelr-net/tflite-perf-tests#accuracy-evaluation).
 
-# Results
+# Results- Object Detection
 
 ## FPS speed evaluation
 * Final results comparison is found in [here](object_detection/README.md#comparison-results)
