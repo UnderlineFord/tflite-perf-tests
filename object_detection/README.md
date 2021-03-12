@@ -4,10 +4,8 @@ This directory contains the details of the comparison of tflite models in object
 
 # Comparison results
 
-* Results shown in the article:
+### Results shown in the article:
 
-| FPS- with heat sink/fans- corrected fps |
-|:-----:|:-----:|:-----:|:-----:|:-----:|
 | Experiment| 1. ssd_mobilenet_v3_small | 2. ssd_mobilenet_v3_large | 3. ssd_mobilenet_v2 (II- STATIC)  | 4. ssd_mobilenet_v1_1 |
 |:-----:|:-----:|:-----:|:-----:|:-----:|
 | baseline |8.2447|2.9859| 4.0262 | 5.4377|
@@ -16,8 +14,10 @@ This directory contains the details of the comparison of tflite models in object
 | 64bit C++|NA|NA| 17.153 | 22.8117|
 | 64bit Python|18.475|8.1404| 17.0597| 22.2758|
 
+* Raspberry Pi 4B [Aluminium Heatsink Case with Dual Fans](https://makerstation.lk/product/heat-sink-aluminum-casing-with-fan/) are used to minimize excessive heating of the device during inference runs.
+* FPS calculated using COCO2017 validation set as explained in [step 6 here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection).
 
-
+### Results of other methods/ models
 
 * The results shown here is the **best results** obtained from each model using different optimization schemes shown in [here](models#methods-used-for-model-optimizations).
 
