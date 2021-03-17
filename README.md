@@ -135,8 +135,8 @@
 
 * Tensorflow Lite installation and environment setup has been done according to [this article](https://qengineering.eu/install-tensorflow-2-lite-on-raspberry-pi-4.html) and [this repository](https://github.com/Qengineering/TensorFlow_Lite_SSD_RPi_32-bits)
 * TFLite models obtained as explained in *Create tflite models section* [here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection)
-* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp) based on the [sample dataset](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/sample_images)
-* Performance evaluation and results saving both can be done simultaneously using the scripts in [here](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp32bit_file_structure/save_outputs/). (eg: [ssd_mobilenet_v3_small model](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp32bit_file_structure/save_outputs/ssd_mobilenet_v3_small/object_detection.cpp))
+* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection_get_fps_only.cpp) based on the [sample dataset](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/sample_images)
+* Performance evaluation and results saving both can be done simultaneously using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection_save_results.cpp).
 	* This saves the results/ predictions as txt files inside the corresponding directory.
 	* Those txt files should be converted to json format using the steps explained [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/cpp32bit_file_structure).
 	* This created results/ prediction files (json) will be saved in [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/results/coco2017_val). 
@@ -148,8 +148,8 @@
 
 * Tensorflow Lite installation and environment setup has been done according to [this article](https://qengineering.eu/install-tensorflow-2-lite-on-raspberry-64-os.html) and [this repository](https://github.com/Qengineering/TensorFlow_Lite_SSD_RPi_64-bits)
 * TFLite models obtained as explained in *Create tflite models section* [here](https://github.com/accelr-net/tflite-perf-tests###2-object-detection)
-* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection.cpp) based on the [sample dataset](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/sample_images)
-* Performance evaluation and results saving both can be done simultaneously using the scripts in [here](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp64bit_file_structure/save_outputs/). (eg: [ssd_mobilenet_v3_small model](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/cpp64bit_file_structure/save_outputs/ssd_mobilenet_v3_small/object_detection.cpp))
+* Performance evaluations were done using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection_get_fps_only.cpp) based on the [sample dataset](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/sample_images)
+* Performance evaluation and results saving both can be done simultaneously using using [this script](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/object_detection_save_results.cpp).
 	* This saves the results/ predictions as txt files inside the corresponding directory.
 	* Those txt files should be converted to json format using the steps explained [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/cpp64bit_file_structure).
 	* This created results/ prediction files (json) will be saved in [here](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/results/coco2017_val). 
