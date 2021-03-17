@@ -4,7 +4,7 @@ This directory contains the details of the comparison of tflite models in object
 
 # Comparison results
 
-### Results shown in the article:
+### Results on popular models
 
 | Experiment| 1. ssd_mobilenet_v3_small | 2. ssd_mobilenet_v3_large | 3. ssd_mobilenet_v2 (II- STATIC)  | 4. ssd_mobilenet_v1_1 |
 |:-----:|:-----:|:-----:|:-----:|:-----:|
@@ -16,26 +16,33 @@ This directory contains the details of the comparison of tflite models in object
 
 * Raspberry Pi 4B [Aluminium Heatsink Case with Dual Fans](https://makerstation.lk/product/heat-sink-aluminum-casing-with-fan/) are used to minimize excessive heating of the device during inference runs.
 * FPS calculated using COCO2017 validation set as explained in [step 6 here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection).
+* Complete results comparison with details can be found [here]([results_comparison](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/TFLITE_PERF_TEST-COMPARISON.xlsx))
 
 ### Results of other methods/ models
 
-* The results shown here is the **best results** obtained from each model using different optimization schemes shown in [here](models#methods-used-for-model-optimizations).
+| Model| 32 bit C++ : FPS | 32bit C++ : detected/ bbox correct | 32 bit Python : FPS | 32bit Python :detected/ bbox correct | 64 bit C++ : FPS | 64bit C++ :detected/ bbox correct | 64 bit Python : FPS | 64bit Python : detected/ bbox correct |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 
-**Model**|**dataset**|**dtype**|**input shape**|**how quantized**|**FPS (RPI32bit+CPP)**|**FPS (RPI32bit+Python)**|**FPS (RPI64bit+CPP)**|**FPS (RPI64bit+Python)**|**CPP- detected/ bbox correct**|**Python- detected/ bbox correct**
-:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
-[ssd\_mobilenet\_v3\_small](models/ssd_mobilenet_v3_small)|coco|uint8|320|already quantized|8.9612|8.9234|16.4866|19.9146|YN|YY
-[ssd\_mobilenet\_v3\_large](models/ssd_mobilenet_v3_large)|coco|uint8|320|already quantized|4.031|4.0618|7.4348|8.7249|YN|YY
-[ssd\_mobilenet\_v2\_fpnlite\_640x640](models/ssd_mobilenet_v2_fpnlite_640x640)|coco|float32|640|[Convert only](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/models#3-convert-only-no-optimization)|-|0.7179|-|1.3288|NN|YY
-[ssd\_mobilenet\_v2\_fpnlite\_320x320](models/ssd_mobilenet_v2_fpnlite_320x320)|coco|float32|640|[Convert only](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/models#3-convert-only-no-optimization)|-|2.2380l|-|5.1319|NN|YY
-[ssd\_mobilenet\_v2](models/ssd_mobilenet_v2)|coco|uint8|300|[Static](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/models#2-static-integer-quantization-with-float-fallback-with-uint8-inference-input-type)|12.1224|12.3275|15.1486|14.2964|YY|YY
-[ssd\_mobilenet\_v1\_fpn](models/ssd_mobilenet_v1_fpn)|coco|float32|640|[Convert only](https://github.com/accelr-net/tflite-perf-tests/tree/main/object_detection/models#3-convert-only-no-optimization)|-|0.0981|-|0.1087|NN|YY
-[**ssd\_mobilenet\_v1\_1 (default\_1)**](models/ssd_mobilenet_v1_1%20(default_1))|-|uint8|300|already quantized|**15.8794**|**15.2136**|**19.4072**|**19.2025**|YY|YY
-[**ssd\_mobilenet\_v1**](models/ssd_mobilenet_v1)|coco|uint8|300|already quantized|**15.9551**|**13.752**|**19.6126**|**19.0989**|YY|YY
-[mobilenetv2\_danoorkans\_ayya](models/mobilenetv2_danoorkans_ayya)|-|uint8|300|already quantized|13.0855|13.0675|16.9024|14.2139|NN|NN
-[mobilenet\_object\_localizer ](models/mobile_object_localizer)|-|uint8|192|already quantized|32.3917|37.3974|38.4623|35.7587|YY|YN
+| 1\. ssd\_mobilenet\_v3\_small | 8.9612 | YN | 8.9234 | YY | 16.4866 | YN | 19.9146 | YY |
+| 2\. ssd\_mobilenet\_v3\_large | 4.031   | YN | 4.0618 | YY | 7.4348  | YN| 8.7249 | YY |
+| 3\. ssd\_mobilenet\_v2\_fpnlite\_640 (I- DYNAMIC) | \- | \- | 0.6604 | YY | \- | \- | 1.1753 | YY |
+| 3\. ssd\_mobilenet\_v2\_fpnlite\_640 (III- CONVERT-ONLY) | \- | | 0.7179 | YY | \- || 1.3288 | YY |
+| 4\. ssd\_mobilenet\_v2\_fpnlite\_320 (I- DYNAMIC) | \- | \- | 1.9446 | YY | \- | \- | 4.3872 | YY |
+| 4\. ssd\_mobilenet\_v2\_fpnlite\_320 (III- CONVERT-ONLY) | \- | \- | 2.238  | YY | \- | \-| 5.1319 | YY    |
+| 5\. ssd\_mobilenet\_v2 (II- STATIC) | 12.1224 | YY | 12.3275| YY | 15.1486 | YY| 14.2964| YY |
+| 6\. ssd\_mobilenet\_v1\_fpn (I- DYNAMIC) | \- | \- | 0.2527 | YY | \- | \-| 0.2725 | YY |
+| 6\. ssd\_mobilenet\_v1\_fpn (III- CONVERT-ONLY) | \- | \- | 0.0981 | YY   | \- | \-| 0.1087 | YY |
+| 7\. ssd\_mobilenet\_v1\_1 | 15.8794 | YY | 15.2136| YY   | 19.4072 | YY| 19.2025| YY |
+| 8\. ssd\_mobilenet\_v1  | 15.9551 | YY | 13.752 | YY | 19.6126 | YY| 19.0989| YY |
+| 9\. Mobilenet v2- face detector | 13.0855 | NN | 13.0675| NN | 16.9024 | NN| 14.2139| NN |
+| 10\. example (they given for CPP) | 15.1958 | YY | \- | \-   | 19.3783 | YY| \- | \- |
+| 11\. localizer | 32.3917 | YN | 37.3974| YY   | 38.4623 | YN| 35.7587| YY |
 
 
-* FPS is calculated using sample_datasets as explained in [step 5 here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection).
-* FPS is calculated considering 20- 40 second interval from the starting time of model inferencing
+* FPS results and results types of all models are shown
+* calculated using sample_datasets as explained in [step 5 here](https://github.com/accelr-net/tflite-perf-tests#2-object-detection).
+* calculated considering 20- 40 second interval from the starting time of model inferencing
 * Num_threads of TensorFlow Lite Interpreter = 4
-
+* Results obtained with no fans/ heat sinks
+* FPS calculation was done using initial methods on both C++, Python
+* obtained mAP values for important experiments can be found in "all_results"/ "results_important" in [results_comparison](https://github.com/accelr-net/tflite-perf-tests/blob/main/object_detection/TFLITE_PERF_TEST-COMPARISON.xlsx)
