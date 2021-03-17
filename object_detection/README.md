@@ -22,7 +22,6 @@ This directory contains the details of the comparison of tflite models in object
 
 | Model| 32 bit C++ : FPS | 32bit C++ : detected/ bbox correct | 32 bit Python : FPS | 32bit Python :detected/ bbox correct | 64 bit C++ : FPS | 64bit C++ :detected/ bbox correct | 64 bit Python : FPS | 64bit Python : detected/ bbox correct |
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-
 | 1\. ssd\_mobilenet\_v3\_small | 8.9612 | YN | 8.9234 | YY | 16.4866 | YN | 19.9146 | YY |
 | 2\. ssd\_mobilenet\_v3\_large | 4.031   | YN | 4.0618 | YY | 7.4348  | YN| 8.7249 | YY |
 | 3\. ssd\_mobilenet\_v2\_fpnlite\_640 (I- DYNAMIC) | \- | \- | 0.6604 | YY | \- | \- | 1.1753 | YY |
