@@ -5,5 +5,4 @@ pycocotools
 numpy
 scikit-image
 matplotlib
-pylab-sdk
 wget
