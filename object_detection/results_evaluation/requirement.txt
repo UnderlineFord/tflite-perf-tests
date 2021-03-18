@@ -2,7 +2,7 @@ os
 wget
 shutil
 argparse
-pandas as pd
+pandas
 matplotlib
 pycocotools
 numpy
