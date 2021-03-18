@@ -6,7 +6,7 @@ Evaluation of models/ experiements using the results json files saved [here](../
 
 ```
 cd object_detection/results_evaluation
-pip -r install requirements.txt
+pip install -r requirements.txt
 bash save_results_outputs_csv.sh
 ```
 
