@@ -7,4 +7,3 @@ matplotlib
 pycocotools
 numpy
 scikit-image
-pylab-sdk
