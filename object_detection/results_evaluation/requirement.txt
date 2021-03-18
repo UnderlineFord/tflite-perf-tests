@@ -1,10 +1,10 @@
-os
+#os
+#shutil
 wget
-shutil
 argparse
 pandas
 matplotlib
 pycocotools
 numpy
-skimage
-pylab
+scikit-image
+pylab-sdk
