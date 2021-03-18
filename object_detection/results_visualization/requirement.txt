@@ -1,9 +1,9 @@
-json
+#os
+#shutil
+#json
 pycocotools
 numpy
-skimage
+scikit-image
 matplotlib
-pylab
-os
+pylab-sdk
 wget
-shutil
