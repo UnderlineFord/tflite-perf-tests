@@ -1,4 +1,4 @@
-import os
+os
 wget
 shutil
 argparse
