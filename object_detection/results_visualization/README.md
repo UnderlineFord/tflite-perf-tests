@@ -6,7 +6,7 @@ Visualizations of results using the results json files saved [here](../results/c
 
 ```
 cd object_detection/results_visualization
-pip -r install requirements.txt
+pip install -r requirements.txt
 python visualize_results.py
 ```
 
