@@ -1,2 +1,4 @@
+# this is file valid for 32bit RPI Python. For 64bit RPI Python/ C++, follow the instructions in the README.md
+
 numpy==1.16.4
 opencv-python==4.4.0.46
