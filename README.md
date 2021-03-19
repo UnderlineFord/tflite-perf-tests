@@ -16,7 +16,7 @@
 
 # Installation steps for RPI/ WSL (Python)
 
-## 1. 32bit RPI
+## 1. 32bit RPI/ WSL
 
 ### 1. Image classification
 1. Create virtual environment
