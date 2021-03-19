@@ -112,19 +112,25 @@ float mean_array(vector<float> v){
 
 int main(int argc,char ** argv)
 {
-    float FPS[16];
+    int n_average=16; // if this changed -> line-168: 0x0F should be changed
+    float FPS[n_average];
     int i;
     int Fcnt=0;
     Mat frame;
     float f;
+    string model_dir= "model.tflite";
+    string label_dir = "COCO_labels.txt";
+    string img_dir="/home/pi/tflite_perf_tests/tflite-perf-tests/object_detection/datasets/coco2017_val/images/*.jpg";	
+    string results_dir="results.txt";
+	
     vector<vector<float>> out_array={};
 
     chrono::steady_clock::time_point Tbegin, Tend;
 
-    for(i=0;i<16;i++) FPS[i]=0.0;
+    for(i=0;i<n_average;i++) FPS[i]=0.0;
 
     // Load model
-    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile("model.tflite");
+    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(model_dir);
 
     // Build the interpreter
     tflite::ops::builtin::BuiltinOpResolver resolver;
@@ -133,7 +139,7 @@ int main(int argc,char ** argv)
     interpreter->AllocateTensors();
 
 	// Get the names
-	bool result = getFileContent("COCO_labels.txt");
+	bool result = getFileContent(label_dir);
 	if(!result)
 	{
         cout << "loading labels failed";
@@ -141,43 +147,35 @@ int main(int argc,char ** argv)
 	}
 
     vector<cv::String> fn;
-	//glob("/home/pi/tflite_perf_tests/tflite-perf-tests/object_detection/datasets/coco2017_val/check_images/*.jpg", fn, false);
-	glob("/home/pi/tflite_perf_tests/tflite-perf-tests/object_detection/datasets/coco2017_val/images/*.jpg", fn, false);
+	glob(img_dir, fn, false);
 
 	size_t count=fn.size();
 	vector<float> fps_array;
 
-
+	
+    int print_step=100;
     for(size_t k=0; k<count; k++){
-        if(k%100==0){cout<<k<<"/"<<count<<endl;}
+        if(k%print_step==0){cout<<k<<"/"<<count<<endl;} 
         frame=imread(fn[k]);
         string file_name=(string)fn[k];
-        string img_name=file_name.substr(file_name.size()-16, 12);
+        string img_name=file_name.substr(file_name.size()-16, 12); // 16, 12 -> to obtain correct file name
         //cout<<img_name<<endl;
         float image_id= stof(img_name);
         //cout<<file_name.substr(file_name.size()-20,100) << "\n" << image_id <<"\n"<<endl;
 
         f=detect_from_video(frame, out_array, image_id);
 
-        FPS[((Fcnt++)&0x0F)]=f/1000.0; //modified
-        for(f=0.0, i=0;i<16;i++){ f+=FPS[i]; }
+        FPS[((Fcnt++)&0x0F)]=f/1000.0;
+        for(f=0.0, i=0;i<n_average;i++){ f+=FPS[i]; }
 
-        fps_array.push_back(1/(f/16)); //modified
+        fps_array.push_back(1/(f/n_average)); //modified
 
-        //putText(frame, format("FPS %0.2f",f/16),Point(10,20),FONT_HERSHEY_SIMPLEX,0.6, Scalar(0, 0, 255));
-        //imshow("RPi 4 - 2.0 GHz - 2 Mb RAM", frame);
-        //char esc = waitKey(1);
-        //if(esc == 27) break;
     }
 
-    //cout << "Closing the camera" << endl;
-    //cap.release();
-    //destroyAllWindows();
-    //cout << "Bye!" << endl;
 
     cout<<"FPS : "<<mean_array(fps_array)<<endl;
 
-    ofstream outputfile("results.txt");
+    ofstream outputfile(results_dir);
     for(int p=0;p<out_array.size();p++){
         for(int q=0;q<out_array[p].size();q++){
             outputfile<<out_array[p][q]<<" ";}
