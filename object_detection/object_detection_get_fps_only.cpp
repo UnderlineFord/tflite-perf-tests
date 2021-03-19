@@ -108,19 +108,24 @@ float mean_array(vector<float> v){
 
 int main(int argc,char ** argv)
 {
-    float FPS[16];
+    int n_average= 16;
+    float FPS[n_average];
     int i;
     int Fcnt=0;
     Mat frame;
     float f;
     float run_time;
+    string model_dir= "model.tflite";
+    string label_dir = "COCO_labels.txt";
+    string data_dir = "/home/pi/tflite_objectdetection_cpp/_images/*.jpg";
+
 
     chrono::steady_clock::time_point Tbegin, Tend;
 
-    for(i=0;i<16;i++) FPS[i]=0.0;
+    for(i=0;i<n_average;i++) FPS[i]=0.0;
 
     // Load model
-    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile("model.tflite");
+    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(model_dir);
 
     // Build the interpreter
     tflite::ops::builtin::BuiltinOpResolver resolver;
@@ -129,27 +134,15 @@ int main(int argc,char ** argv)
     interpreter->AllocateTensors();
 
 	// Get the names
-	bool result = getFileContent("COCO_labels.txt");
+	bool result = getFileContent(label_dir);
 	if(!result)
 	{
         cout << "loading labels failed";
         exit(-1);
 	}
-    /*
-    VideoCapture cap("James.mp4");
-    if (!cap.isOpened()) {
-        cerr << "ERROR: Unable to open the camera" << endl;
-        return 0;
-    }
 
-    cout << "Start grabbing, press ESC on Live window to terminate" << endl;
-
-    while(1){
-//        frame=imread("Traffic.jpg");  //need to refresh frame before dnn class detection
-        cap >> frame;
-    */
     vector<cv::String> fn;
-	glob("/home/pi/tflite_objectdetection_cpp/_images/*.jpg", fn, false);
+	glob(data_dir, fn, false);
 	size_t count=fn.size();
 	vector<float> fps_array;
 	bool break_flag=false;
@@ -162,7 +155,9 @@ int main(int argc,char ** argv)
 	cin>>end_time;
 
 	Tbegin = chrono::steady_clock::now();
-    for(int num=0; num<10000;num++){
+	
+    int num_iter=10000;
+    for(int num=0; num< num_iter;num++){
     if(break_flag==true){break;}
     for(size_t k=0; k<count; k++){
 
@@ -178,13 +173,13 @@ int main(int argc,char ** argv)
         f=detect_from_video(frame);
 
         FPS[((Fcnt++)&0x0F)]=1000.0/f;
-        for(f=0.0, i=0;i<16;i++){ f+=FPS[i]; }
+        for(f=0.0, i=0;i<n_average;i++){ f+=FPS[i]; }
 
         if (run_time>start_time){
-        fps_array.push_back(f/16);
+        fps_array.push_back(f/n_average);
         }
 
-        putText(frame, format("FPS %0.2f",f/16),Point(10,20),FONT_HERSHEY_SIMPLEX,0.6, Scalar(0, 0, 255));
+        putText(frame, format("FPS %0.2f",f/n_average),Point(10,20),FONT_HERSHEY_SIMPLEX,0.6, Scalar(0, 0, 255));
 
         //show output
         imshow("RPi 4 - 2.0 GHz - 2 Mb RAM", frame);
